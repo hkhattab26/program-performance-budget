@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>موازنة البرامج والأداء | منصة تدريب تفاعلية</title>
+<style>
+:root{--navy:#17324d;--blue:#2878a8;--teal:#2c9a9a;--gold:#c89b3c;--bg:#f4f7f9;--card:#fff;--text:#24323d;--muted:#687783;--ok:#23865b;--bad:#b94a48}
+*{box-sizing:border-box}body{margin:0;font-family:"Tahoma","Arial",sans-serif;background:var(--bg);color:var(--text);line-height:1.8}
+header{background:linear-gradient(135deg,var(--navy),#245a79);color:white;padding:28px 6%;box-shadow:0 4px 18px #0002}
+header .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff40;padding:5px 12px;border-radius:20px;font-size:13px}
+h1{margin:8px 0 4px;font-size:30px}header p{margin:0;color:#e7eef3}
+.container{max-width:1100px;margin:auto;padding:25px 18px 50px}
+.progress{height:8px;background:#dfe7eb;border-radius:20px;overflow:hidden;margin-bottom:20px}.bar{height:100%;width:0;background:var(--gold);transition:.3s}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}button{font-family:inherit;cursor:pointer;border:0}
+.tab{background:white;color:var(--navy);padding:10px 17px;border-radius:12px;box-shadow:0 2px 8px #0000000d;font-weight:bold}.tab.active{background:var(--navy);color:white}
+section{display:none}.active-section{display:block}
+.card{background:var(--card);border-radius:18px;padding:22px;margin:15px 0;box-shadow:0 5px 18px #20304012;border:1px solid #e5ecef}
+.hero{display:grid;grid-template-columns:1.4fr .8fr;gap:18px}.heroBox{background:#edf6f8;border-radius:18px;padding:25px}.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:15px}.pill{background:white;border:1px solid #d7e2e7;border-radius:30px;padding:7px 12px}.arrow{color:var(--gold);font-weight:bold}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:15px}
+.mini{padding:18px;border-radius:15px;background:#f8fafb;border:1px solid #e4eaed}.mini h3{margin-top:0;color:var(--blue)}
+details{background:#f8fafb;border:1px solid #e1e8eb;border-radius:13px;padding:12px 16px;margin:9px 0}summary{cursor:pointer;font-weight:bold;color:var(--navy)}
+.case{border-right:5px solid var(--teal);background:#f3fbfb}
+.q{font-weight:bold;font-size:17px}.option{display:block;width:100%;text-align:right;background:#f7f9fa;border:1px solid #dce5e9;margin:8px 0;padding:11px 14px;border-radius:11px}.option:hover{background:#edf5f8}.option.correct{background:#e5f6ed;border-color:#78c79d}.option.wrong{background:#fdeaea;border-color:#dfa0a0}
+.feedback{font-weight:bold;margin-top:8px}.score{font-size:24px;font-weight:bold;color:var(--navy)}
+.action{background:var(--blue);color:white;padding:11px 18px;border-radius:11px;margin-top:10px}.secondary{background:#e9eff2;color:var(--navy)}
+.certificate{border:3px solid var(--gold);background:#fffdf7;text-align:center;padding:35px;border-radius:20px}
+.small{font-size:13px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:12px;margin-top:25px}
+@media(max-width:800px){.hero,.grid,.grid2{grid-template-columns:1fr}h1{font-size:24px}.container{padding:18px 12px}}
+</style>
+</head>
+<body>
+<header>
+<span class="tag">منصة تدريب تفاعلية</span>
+<h1>موازنة البرامج والأداء</h1>
+<p>من الأهداف والبرامج إلى التكلفة والنتائج وقياس الأداء — مع تطبيقات مرتبطة بالمادة التدريبية وGFMIS.</p>
+</header>
+
+<div class="container">
+<div class="progress"><div class="bar" id="bar"></div></div>
+<nav>
+<button class="tab active" data-tab="learn">📚 التعلم</button>
+<button class="tab" data-tab="practice">🎯 تطبيق عملي</button>
+<button class="tab" data-tab="quiz">📝 الاختبار</button>
+<button class="tab" data-tab="final">🏆 الإنجاز</button>
+</nav>
+
+<section id="learn" class="active-section">
+<div class="hero">
+<div class="heroBox">
+<h2>الفكرة الأساسية</h2>
+<p>موازنة البرامج والأداء تربط بين <b>الأهداف والبرامج والأنشطة والتكلفة والنتائج وقياس الأداء</b>.</p>
+<div class="flow">
+<span class="pill">الأهداف</span><span class="arrow">←</span>
+<span class="pill">البرامج والأنشطة</span><span class="arrow">←</span>
+<span class="pill">التكلفة</span><span class="arrow">←</span>
+<span class="pill">النتائج</span><span class="arrow">←</span>
+<span class="pill">قياس الأداء</span>
+</div>
+</div>
+<div class="card">
+<h3>سؤال البداية</h3>
+<p>موازنة البرامج تجيب عن سؤال:</p><h2>ماذا ننفذ؟</h2>
+<p>أما موازنة الأداء فتسأل:</p><h2>ماذا أنجزنا؟ وهل أنجزناه بكفاءة؟</h2>
+</div>
+</div>
+
+<div class="card"><h2>لماذا ظهرت؟</h2>
+<p>لأن الموازنة التقليدية على أساس البنود لا توضح بصورة كافية البرنامج الذي تذهب إليه الاعتمادات، ولا الهدف الذي يتحقق، ولا مدى كفاءة الإنفاق أو تحقيق النتائج المستهدفة.</p></div>
+
+<h2>العناصر الرئيسية</h2>
+<div class="grid">
+<div class="mini"><h3>🎯 الأهداف</h3><p>تحديد ما تسعى الجهة إلى تحقيقه.</p></div>
+<div class="mini"><h3>🧩 البرامج</h3><p>تجميع الأنشطة في برامج مرتبطة بالأهداف.</p></div>
+<div class="mini"><h3>⚙️ الأنشطة</h3><p>الأعمال والإجراءات اللازمة لتنفيذ البرنامج.</p></div>
+<div class="mini"><h3>💰 التكاليف</h3><p>تقدير تكلفة تنفيذ الأنشطة والبرامج.</p></div>
+<div class="mini"><h3>📦 المخرجات والنتائج</h3><p>ما يتم إنجازه وما يتحقق من نتائج.</p></div>
+<div class="mini"><h3>📊 مؤشرات الأداء</h3><p>أدوات لقياس الإنجاز وجودة الخدمة وتحقيق الهدف.</p></div>
+</div>
+
+<div class="card">
+<h2>مثال تطبيقي من المادة</h2>
+<p><b>الهدف:</b> تحسين الرعاية الصحية.</p>
+<p><b>البرنامج:</b> الرعاية الصحية الأولية.</p>
+<p><b>الأنشطة:</b> توفير وحدات صحية وتجهيزها، تدريب العاملين، وشراء المستلزمات.</p>
+<p><b>المخرجات:</b> عدد الوحدات والتجهيزات والعاملين الذين تم تدريبهم.</p>
+<p><b>مؤشرات الأداء:</b> عدد المستفيدين، جودة الخدمة، ومدى تحقيق الهدف.</p>
+</div>
+
+<h2>مراحل التنفيذ</h2>
+<div class="grid2">
+<div class="mini"><h3>1. التخطيط</h3><p>تحديد الأهداف والبرامج والأنشطة.</p></div>
+<div class="mini"><h3>2. تقدير تكلفة الإنجاز</h3><p>تقدير الموارد والتكاليف اللازمة.</p></div>
+<div class="mini"><h3>3. المراجعة</h3><p>مراجعة ما تم تقديره وخطط التنفيذ.</p></div>
+<div class="mini"><h3>4. متابعة التنفيذ</h3><p>متابعة التنفيذ وقياس الأداء والنتائج.</p></div>
+</div>
+
+<div class="card">
+<h2>عوامل النجاح والتحديات</h2>
+<details><summary>عوامل النجاح</summary><p>دعم الإدارة العليا، وضوح الأهداف القابلة للقياس، وجود نظام محاسبي ومالي قوي، ضبط التكاليف، مؤشرات مالية وغير مالية مناسبة، خطة تنفيذ واضحة، كوادر مدربة، وتصنيف دقيق للأنشطة والبرامج والوظائف.</p></details>
+<details><summary>أبرز التحديات</summary><p>ضعف البنية التحتية، نقص الكوادر الفنية المدربة، ضعف نظم المعلومات والمتابعة، صعوبة قياس بعض النتائج، والحاجة إلى نظم فعالة لمتابعة التكلفة وقياس الأداء.</p></details>
+</div>
+
+<div class="card">
+<h2>منهجية التطبيق المالي</h2>
+<p>تتضمن المادة الثانية الربط بين موازنة البرامج والأداء والنظم المالية، مع الإشارة إلى <b>Oracle Hyperion</b> و<b>GFMIS</b>، واختيار المشروع/النشاط وتسجيل البيانات ومراجعة التقارير.</p>
+<p class="small">هذه المنصة تلخص المادة التدريبية ولا تمثل نظام GFMIS فعليًا ولا تتصل به مباشرة.</p>
+</div>
+</section>
+
+<section id="practice">
+<div class="card case"><h2>🎯 الحالة الأولى: تحويل الهدف إلى برنامج</h2>
+<p>جهة حكومية تريد تحسين خدمة صحية. المطلوب: تحويل الهدف إلى برنامج وأنشطة ومخرجات ومؤشرات.</p>
+<details open><summary>الحل التدريبي</summary>
+<p><b>الهدف:</b> تحسين الرعاية الصحية.</p><p><b>البرنامج:</b> الرعاية الصحية الأولية.</p><p><b>الأنشطة:</b> توفير وتجهيز الوحدات، التدريب، شراء المستلزمات.</p><p><b>المخرجات:</b> عدد الوحدات والتجهيزات والمتدربين.</p><p><b>المؤشرات:</b> عدد المستفيدين، جودة الخدمة، وتحقيق الهدف.</p>
+</details></div>
+
+<div class="card case"><h2>🎯 الحالة الثانية: GFMIS</h2>
+<p>في التطبيق المالي، يتم التعامل مع بيانات الموازنة والاعتمادات والحركات والتقارير واختيار المشروع/النشاط وفق البيانات المتاحة في النظام.</p>
+<details><summary>نقطة التعلم</summary><p>المادة تركز على الربط بين موازنة البرامج والأداء والنظم المالية، وعلى دقة اختيار المشروع/النشاط وتسجيل البيانات ومراجعة التقارير. ولا تقدم هذه الصفحة محاكاة تشغيلية للنظام الحقيقي.</p></details></div>
+
+<div class="card">
+<h2>🧠 اسأل نفسك</h2>
+<p>إذا عرفتَ قيمة الاعتماد فقط، هل تستطيع وحدها معرفة ما تم إنجازه؟</p>
+<button class="action" onclick="this.nextElementSibling.hidden=false">أظهر الفكرة</button>
+<p hidden>الهدف من موازنة البرامج والأداء هو الربط بين الموارد والبرامج والأنشطة والنتائج وقياس الأداء، وليس الاكتفاء بقيمة الاعتماد.</p>
+</div>
+</section>
+
+<section id="quiz">
+<div class="card"><h2>📝 اختبار قصير</h2><p>أجب عن الأسئلة التالية. تحصل على نتيجتك فورًا.</p><div id="quizBox"></div><button class="action" onclick="grade()">تصحيح الاختبار</button><div id="result"></div></div>
+</section>
+
+<section id="final">
+<div class="card certificate">
+<h2>🏆 أحسنتِ</h2>
+<p>أكملتِ محتوى المنصة التفاعلية لمادة</p>
+<h1>موازنة البرامج والأداء</h1>
+<p>يشمل المحتوى المفاهيم الأساسية، العناصر، المراحل، عوامل النجاح والتحديات، وتطبيقات مرتبطة بالنظم المالية وGFMIS.</p>
+<p class="small">شهادة إتمام تدريبية غير رسمية — يمكن تخصيصها باسم المتدرب والجهة لاحقًا.</p>
+<button class="action" onclick="window.print()">🖨️ طباعة / حفظ الشهادة</button>
+</div>
+</section>
+
+
+<div class="card" id="certificateCard">
+  <h2>🏆 شهادة الإتمام</h2>
+  <p>بعد اجتياز الاختبار، اكتبي اسم المتدرب لإظهار شهادة الإتمام داخل الصفحة.</p>
+  <input id="learnerName" type="text" placeholder="اسم المتدرب" style="width:100%;padding:12px;border:1px solid #ccd9df;border-radius:10px;font-family:inherit;font-size:16px">
+  <button class="action" type="button" id="makeCertificate" style="margin-top:10px">إظهار الشهادة</button>
+  <div id="certificateMessage" style="font-size:13px;color:#687783;margin-top:8px"></div>
+</div>
+
+<div id="certificatePanel" style="display:none;margin-top:18px;padding:28px;border:3px solid #c89b3c;border-radius:18px;text-align:center;background:#fffdf7">
+  <div style="font-size:13px;color:#687783">شهادة إتمام تدريبية</div>
+  <h2>موازنة البرامج والأداء</h2>
+  <p>تشهد المنصة بإتمام المتدرب/ة</p>
+  <div id="certificateName" style="font-size:28px;font-weight:800;color:#17324d;margin:15px"></div>
+  <p>لمحتوى تدريبي تفاعلي يشمل المفاهيم الأساسية، التطبيق العملي، والربط بالنظم المالية وGFMIS.</p>
+  <p id="certificateScore"></p>
+  <p style="font-size:12px;color:#687783">شهادة تدريبية غير رسمية — لا تمثل اعتمادًا أو شهادة صادرة عن جهة حكومية.</p>
+  <button class="action" type="button" onclick="window.print()">🖨️ طباعة / حفظ الشهادة</button>
+</div>
+
+<div class="card">
+<h2>🔎 مراجعة سريعة</h2>
+<div class="grid2">
+<div class="mini"><h3>1️⃣ التخطيط</h3><p>تحديد الأهداف والبرامج والأنشطة.</p></div>
+<div class="mini"><h3>2️⃣ تقدير التكلفة</h3><p>تقدير تكلفة الإنجاز والموارد المطلوبة.</p></div>
+<div class="mini"><h3>3️⃣ المراجعة</h3><p>مراجعة ما تم تقديره وخطط التنفيذ.</p></div>
+<div class="mini"><h3>4️⃣ المتابعة</h3><p>متابعة التنفيذ وقياس الأداء والنتائج.</p></div>
+</div>
+</div>
+<footer>إعداد تعليمي تفاعلي مبني على المادة التدريبية المرفقة — سبتمبر 2026</footer>
+</div>
+
+<script>
+const tabs=document.querySelectorAll('.tab'), sections=document.querySelectorAll('section');
+tabs.forEach(t=>t.onclick=()=>{tabs.forEach(x=>x.classList.remove('active'));t.classList.add('active');sections.forEach(s=>s.classList.remove('active-section'));document.getElementById(t.dataset.tab).classList.add('active-section');updateProgress(t.dataset.tab)});
+function updateProgress(tab){const map={learn:25,practice:50,quiz:75,final:100};document.getElementById('bar').style.width=map[tab]+'%'}
+const qs=[
+["موازنة البرامج تجيب أساسًا عن أي سؤال؟",["ماذا ننفذ؟","كم عدد الموظفين؟","ما قيمة الضرائب؟","متى نغلق السنة؟"],0],
+["أي عنصر يوضح ما يتم إنجازه من تنفيذ البرنامج؟",["النتائج/المخرجات","الأهداف فقط","الهيكل الإداري","اسم الجهة"],0],
+["ما المرحلة التي تتضمن تقدير الموارد والتكاليف اللازمة؟",["التخطيط","تقدير تكلفة الإنجاز","المراجعة","متابعة التنفيذ"],1],
+["أي مما يلي من عوامل نجاح موازنة البرامج والأداء؟",["غياب مؤشرات الأداء","ضعف نظم المعلومات","وضوح الأهداف القابلة للقياس","إلغاء متابعة التنفيذ"],2],
+["تتضمن المادة الثانية الربط مع أي نظام مالي؟",["GFMIS","نظام مرور","نظام تعليمي","نظام طبي"],0]
+];
+const box=document.getElementById('quizBox');
+qs.forEach((q,i)=>{let d=document.createElement('div');d.className='card';d.innerHTML='<div class="q">'+(i+1)+'. '+q[0]+'</div>'+q[1].map((o,j)=>'<button class="option" data-q="'+i+'" data-a="'+j+'">'+o+'</button>').join('');box.appendChild(d)});
+let answers={};document.querySelectorAll('.option').forEach(b=>b.onclick=()=>{answers[b.dataset.q]=+b.dataset.a;document.querySelectorAll('[data-q="'+b.dataset.q+'"]').forEach(x=>x.style.outline='none');b.style.outline='2px solid #2878a8'});
+function grade(){let score=0;qs.forEach((q,i)=>{document.querySelectorAll('[data-q="'+i+'"]').forEach(b=>{b.classList.remove('correct','wrong');if(+b.dataset.a===q[2])b.classList.add('correct');else if(answers[i]===+b.dataset.a)b.classList.add('wrong')});if(answers[i]===q[2])score++});document.getElementById('result').innerHTML='<p class="score">النتيجة: '+score+' / '+qs.length+'</p><p>'+ (score===qs.length?'ممتاز! أتممتِ الاختبار بنجاح.':'راجعي النقاط التعليمية ثم أعيدي الاختبار للوصول إلى الدرجة الكاملة.')+'</p>';if(score===qs.length){document.getElementById('bar').style.width='100%'}}
+
+const makeCertificate = document.getElementById('makeCertificate');
+if (makeCertificate) {
+  makeCertificate.addEventListener('click', function () {
+    const name = document.getElementById('learnerName').value.trim();
+    const msg = document.getElementById('certificateMessage');
+    if (!name) { msg.textContent = 'اكتبي اسم المتدرب أولًا.'; return; }
+    const resultText = document.getElementById('result')?.textContent || '';
+    if (!/5\s*\/\s*5/.test(resultText)) {
+      msg.textContent = 'اجتازي الاختبار أولًا بالدرجة الكاملة لإظهار الشهادة.';
+      return;
+    }
+    document.getElementById('certificateName').textContent = name;
+    document.getElementById('certificateScore').textContent = 'النتيجة: 5 / 5';
+    document.getElementById('certificatePanel').style.display = 'block';
+    msg.textContent = 'تم إنشاء الشهادة داخل الصفحة.';
+  });
+}
+
+</script>
+</body>
+</html>
