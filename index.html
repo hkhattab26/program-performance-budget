@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دليل موازنة البرامج والأداء التفاعلي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F1F4F7; --surface:#FFFFFF; --ink:#13243A; --muted:#58697E; --line:#D3DBE4;
+  --accent:#B92B36; --accent-soft:#F8E4E5; --prog:#0D6A65; --prog-soft:#DCEFED;
+  --warn:#8A5A06; --warn-bg:#FBEFD6; --ok:#17703F; --ok-bg:#DFF1E6; --bad:#B3261E; --bad-bg:#FBE3E1;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1620; --surface:#15212D; --ink:#E8EEF5; --muted:#9BABBD; --line:#2A3A4C;
+    --accent:#F0727A; --accent-soft:#3A1E22; --prog:#55C6BD; --prog-soft:#10393A;
+    --warn:#F1C46A; --warn-bg:#352A12; --ok:#6FD39A; --ok-bg:#12301F; --bad:#FF8C84; --bad-bg:#3B1B19;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1620; --surface:#15212D; --ink:#E8EEF5; --muted:#9BABBD; --line:#2A3A4C;
+  --accent:#F0727A; --accent-soft:#3A1E22; --prog:#55C6BD; --prog-soft:#10393A;
+  --warn:#F1C46A; --warn-bg:#352A12; --ok:#6FD39A; --ok-bg:#12301F; --bad:#FF8C84; --bad-bg:#3B1B19;
+}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 68px);scroll-behavior:smooth;height:100%}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.85 "IBM Plex Sans Arabic","Segoe UI",Tahoma,"Noto Naskh Arabic",sans-serif;-webkit-text-size-adjust:100%}
+h1,h2,h3{line-height:1.45;margin:0}
+p{margin:0 0 .8em}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+.wrap{width:min(720px,100%);margin-inline:auto;padding-inline:18px}
+
+/* top nav */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.top nav{display:flex;gap:6px;overflow-x:auto;padding:10px 18px;scrollbar-width:none}
+.top nav::-webkit-scrollbar{display:none}
+.top a{flex:none;text-decoration:none;color:var(--muted);font-size:15px;font-weight:500;padding:4px 14px;border-radius:99px;border:1px solid transparent;line-height:1.7}
+.top a.on{color:var(--ink);border-color:var(--ink);font-weight:700}
+
+/* hero */
+.hero{padding:34px 0 10px}
+.hero h1{font-size:clamp(30px,8vw,46px);font-weight:700;letter-spacing:0}
+.hero .lede{color:var(--muted);margin-top:12px;max-width:34em}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);border-radius:12px;overflow:hidden;margin-top:24px}
+.seg button{border:0;background:transparent;padding:12px 8px;font-weight:700;font-size:16px;line-height:1.5}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--bg)}
+.seg.teal{border-color:var(--prog)}
+.seg.teal button[aria-selected="true"]{background:var(--prog);color:var(--bg)}
+.lens{background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-top:14px;padding:20px 18px;min-height:360px}
+.lens .q{font-size:24px;font-weight:700;margin-bottom:14px}
+.lens.p .q{color:var(--prog)}
+.row{display:grid;grid-template-columns:92px 1fr;gap:12px;padding:10px 0;border-top:1px solid var(--line);animation:in .38s both}
+.row b{color:var(--prog);font-weight:700;font-size:15px}
+.row span{font-size:16px;line-height:1.7}
+.lens .unans{color:var(--muted);border-top:1px dashed var(--line);padding:10px 0;display:flex;gap:10px;font-size:16px}
+.lens .unans i{font-style:normal;color:var(--accent);font-weight:700}
+.item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-top:1px solid var(--line);animation:in .38s both}
+.item em{font-style:normal;color:var(--muted);font-size:14px}
+@keyframes in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* sections */
+section{padding:46px 0 6px}
+.sec-h{border-top:3px solid var(--ink);padding-top:14px;margin-bottom:18px}
+.sec-h h2{font-size:28px;font-weight:700}
+.sec-h p{color:var(--muted);margin:6px 0 0;font-size:16px}
+
+/* accordion */
+details{border-bottom:1px solid var(--line)}
+summary{list-style:none;cursor:pointer;padding:14px 0;font-weight:700;font-size:18px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:26px;font-weight:400;color:var(--accent);line-height:1;transition:transform .2s}
+details[open] summary::after{content:"\2212"}
+.dbody{padding:0 0 16px;color:var(--ink)}
+.chain{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:10px 0}
+.chain span{background:var(--prog-soft);color:var(--prog);border-radius:8px;padding:2px 12px;font-weight:700;font-size:15px}
+.chain i{font-style:normal;color:var(--muted)}
+ul.t{margin:6px 0 0;padding-inline-start:20px}
+ul.t li{margin:3px 0}
+.two{display:grid;grid-template-columns:1fr;gap:10px;margin-top:8px}
+.two div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--surface)}
+.two h3{font-size:17px;margin-bottom:4px;color:var(--prog)}
+.two div:first-child h3{color:var(--accent)}
+@media(min-width:560px){.two{grid-template-columns:1fr 1fr}}
+
+/* stepper */
+.stepper{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.dots{display:flex;gap:6px;margin-bottom:16px}
+.dots button{flex:1;height:8px;border:0;border-radius:4px;background:var(--line);padding:0}
+.dots button.done{background:var(--prog)}
+.dots button.cur{background:var(--accent)}
+.stepper h3{font-size:21px;margin-bottom:6px}
+.stepper .n{color:var(--accent);font-weight:700;font-size:15px;margin-bottom:2px}
+.nav2{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.btn{border:2px solid var(--ink);background:transparent;border-radius:10px;padding:8px 20px;font-weight:700}
+.btn.fill{background:var(--ink);color:var(--bg)}
+.btn[disabled]{opacity:.35;cursor:default}
+.note{background:var(--warn-bg);color:var(--ink);border-radius:10px;padding:12px 14px;margin-top:14px;font-size:16px;border-inline-start:4px solid var(--warn)}
+.note b{color:var(--warn)}
+
+/* tabs */
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:14px;scrollbar-width:none;padding-bottom:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{flex:none;border:1.5px solid var(--line);background:var(--surface);border-radius:99px;padding:3px 16px;font-weight:500;font-size:15px;line-height:1.8}
+.tabs button[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink);font-weight:700}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px}
+.panel h3{font-size:20px;margin-bottom:8px}
+
+/* mock table */
+.mock{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+.mock th,.mock td{text-align:start;padding:7px 8px;border-bottom:1px solid var(--line)}
+.mock th{color:var(--muted);font-weight:500}
+.mock td.c{font-variant-numeric:tabular-nums;direction:ltr;text-align:end;color:var(--muted)}
+label{display:block;font-weight:500;font-size:15px;margin:10px 0 4px;color:var(--muted)}
+select,input[type=number]{width:100%;font:inherit;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink)}
+input[type=number]{direction:ltr;text-align:end}
+.msg{margin-top:12px;padding:10px 14px;border-radius:10px;font-size:16px;font-weight:500}
+.msg.ok{background:var(--ok-bg);color:var(--ok)}
+.msg.bad{background:var(--bad-bg);color:var(--bad)}
+.msg.info{background:var(--prog-soft);color:var(--prog)}
+
+/* report chips */
+.fam{font-weight:700;margin:14px 0 6px;font-size:16px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips button{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:3px 14px;font-size:15px;line-height:1.7}
+.chips button[aria-pressed="true"]{border-color:var(--prog);background:var(--prog-soft);color:var(--prog);font-weight:700}
+
+/* quiz + cards */
+.opt{display:block;width:100%;text-align:start;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 14px;margin-top:8px;line-height:1.7}
+.opt.ok{border-color:var(--ok);background:var(--ok-bg);color:var(--ok);font-weight:700}
+.opt.bad{border-color:var(--bad);background:var(--bad-bg);color:var(--bad)}
+.opt[disabled]{cursor:default}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.prog div{height:100%;background:var(--accent);transition:width .3s}
+.score{font-size:46px;font-weight:700;color:var(--prog);line-height:1.2}
+.grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.grid{grid-template-columns:1fr 1fr}}
+.fc{border:1.5px solid var(--line);background:var(--surface);border-radius:12px;padding:16px;min-height:112px;text-align:start;display:flex;align-items:center;font-size:18px;font-weight:700;line-height:1.6}
+.fc[aria-pressed="true"]{background:var(--prog-soft);border-color:var(--prog);color:var(--prog);font-weight:400;font-size:16px}
+.fc small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+
+footer{padding:40px 0 48px;color:var(--muted);font-size:14px;line-height:1.8;border-top:1px solid var(--line);margin-top:46px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <nav id="nav" aria-label="أقسام الدليل">
+    <a href="#home" class="on">البداية</a>
+    <a href="#concepts">المفهوم</a>
+    <a href="#phases">مراحل التطبيق</a>
+    <a href="#system">منظومة GFMIS</a>
+    <a href="#nib">بنك الاستثمار القومي</a>
+    <a href="#quiz">اختبر نفسك</a>
+    <a href="#cards">بطاقات المراجعة</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+<!-- HERO -->
+<section id="home" class="hero">
+  <h1>موازنة البرامج والأداء</h1>
+  <p class="lede">الموازنة التقليدية تسأل: أين نصرف؟ وموازنة البرامج والأداء تسأل: ماذا نحقق بما نصرف، وهل حققناه بكفاءة؟ اضغط على كل عدسة لترى الفرق على مثال وزارة الصحة.</p>
+  <div class="seg" role="tablist" aria-label="اختر العدسة">
+    <button role="tab" id="t-trad" aria-selected="true">الموازنة التقليدية</button>
+    <button role="tab" id="t-prog" aria-selected="false">البرامج والأداء</button>
+  </div>
+  <div id="lens" class="lens" aria-live="polite"></div>
+</section>
+
+<!-- CONCEPTS -->
+<section id="concepts">
+  <div class="sec-h"><h2>المفهوم في ثماني نقاط</h2><p>افتح كل نقطة لقراءة الشرح.</p></div>
+  <div id="acc"></div>
+</section>
+
+<!-- PHASES -->
+<section id="phases">
+  <div class="sec-h"><h2>أربع مراحل للتطبيق</h2><p>تتابع المراحل بالترتيب، تنقّل بينها بالأزرار.</p></div>
+  <div id="phaseStep" class="stepper"></div>
+</section>
+
+<!-- SYSTEM -->
+<section id="system">
+  <div class="sec-h"><h2>التطبيق على منظومة GFMIS</h2><p>ماذا تغيّر في الشاشات والقيود والتقارير بعد تفعيل مقطع البرنامج؟</p></div>
+  <div class="tabs" role="tablist" id="sysTabs">
+    <button role="tab" aria-selected="true" data-t="hyp">إعداد الموازنة</button>
+    <button role="tab" aria-selected="false" data-t="trf">المناقلات والتعزيزات</button>
+    <button role="tab" aria-selected="false" data-t="jrn">قيود اليومية الفعلية</button>
+    <button role="tab" aria-selected="false" data-t="rep">التقارير</button>
+  </div>
+  <div id="sysPanel"></div>
+</section>
+
+<!-- NIB -->
+<section id="nib">
+  <div class="sec-h"><h2>خدمة بنك الاستثمار القومي</h2><p>إنشاء أمر دفع بنك الاستثمار القومي عبر مدخل الدفع الإلكتروني GPS، خطوة بخطوة.</p></div>
+  <div id="nibStep" class="stepper"></div>
+
+  <div class="panel" style="margin-top:14px">
+    <h3>جرّب قاعدة المطابقة</h3>
+    <p style="color:var(--muted);font-size:16px">إجمالي مبالغ المشروعات يجب أن يساوي مبلغ أمر الدفع. أدخل أرقاماً تجريبية.</p>
+    <label for="oa">مبلغ أمر الدفع</label><input id="oa" type="number" inputmode="decimal" value="1000">
+    <label for="p1">مبلغ المشروع الأول</label><input id="p1" type="number" inputmode="decimal" value="600">
+    <label for="p2">مبلغ المشروع الثاني</label><input id="p2" type="number" inputmode="decimal" value="300">
+    <div id="chk" class="msg"></div>
+  </div>
+
+  <div style="margin-top:22px">
+    <h3 style="font-size:20px;margin-bottom:4px">رسائل التنبيه: ماذا تعني وماذا تفعل؟</h3>
+    <div id="warns"></div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="sec-h"><h2>اختبر نفسك</h2><p>عشرة أسئلة، وبعد كل إجابة تظهر النتيجة مع التوضيح.</p></div>
+  <div id="quizBox" class="panel"></div>
+</section>
+
+<!-- CARDS -->
+<section id="cards">
+  <div class="sec-h"><h2>بطاقات المراجعة</h2><p>اضغط على البطاقة لتظهر الإجابة، واضغط مرة أخرى لإعادتها.</p></div>
+  <div id="fc" class="grid"></div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  المصدر: ملف «شرح مبسط لموازنة البرامج والأداء» وعرض «موازنة البرامج والأداء (GFMIS/GPS) – خدمات بنك الاستثمار القومي» (قطاع تفعيل الخدمات والدعم الفني الميداني، سبتمبر 2026). أسماء البرامج والأرقام في الأمثلة التفاعلية توضيحية للتدريب فقط.
+</footer>
+
+<script>
+/* ---------- helpers ---------- */
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+/* ---------- nav highlight ---------- */
+try{
+  const links = $$('#nav a');
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle('on', l.getAttribute('href')==='#'+e.target.id));
+        const on = $('#nav a.on'); if(on) on.scrollIntoView({inline:'center',block:'nearest'});
+      }
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  $$('main section').forEach(s=>io.observe(s));
+}catch(e){}
+
+/* ---------- hero lens ---------- */
+const lens = $('#lens');
+function showLens(mode){
+  const trad = mode==='trad';
+  $('#t-trad').setAttribute('aria-selected', trad);
+  $('#t-prog').setAttribute('aria-selected', !trad);
+  $('.seg').classList.toggle('teal', !trad);
+  lens.classList.toggle('p', !trad);
+  if(trad){
+    const items=['المرتبات','الأدوية والمستلزمات','المركبات','المصروفات المشتركة'];
+    lens.innerHTML = `<div class="q">أين نصرف؟</div>` +
+      items.map((t,i)=>`<div class="item" style="animation-delay:${i*70}ms"><span>${t}</span><em>بند إنفاق</em></div>`).join('') +
+      `<div style="height:14px"></div>
+       <div class="unans"><i>؟</i><span>أي برنامج يُموَّل بهذه الأموال؟</span></div>
+       <div class="unans"><i>؟</i><span>ما الهدف الذي سيتحقق؟</span></div>
+       <div class="unans"><i>؟</i><span>هل نُفِّذ بكفاءة وهل تحققت النتائج؟</span></div>`;
+  } else {
+    const rows=[
+      ['الهدف','تحسين الرعاية الصحية'],
+      ['البرنامج','توفير الرعاية الصحية الأولية'],
+      ['الأنشطة','توفير الوحدات الصحية، توفير الأدوية، تدريب العاملين، شراء المعدات'],
+      ['التكلفة','تُحدَّد تكلفة كل نشاط'],
+      ['المؤشرات','عدد الوحدات التي وُفِّرت، عدد المستفيدين من الخدمة، جودة الخدمات الصحية، مستوى تحقيق الهدف']
+    ];
+    lens.innerHTML = `<div class="q">ماذا نحقق بما نصرف؟</div>` +
+      rows.map((r,i)=>`<div class="row" style="animation-delay:${i*90}ms"><b>${r[0]}</b><span>${r[1]}</span></div>`).join('');
+  }
+}
+$('#t-trad').onclick=()=>showLens('trad');
+$('#t-prog').onclick=()=>showLens('prog');
+showLens('trad');
+
+/* ---------- accordion ---------- */
+const chain = a => `<div class="chain">${a.map((x,i)=>(i?'<i>←</i>':'')+`<span>${x}</span>`).join('')}</div>`;
+const ul = a => `<ul class="t">${a.map(x=>`<li>${x}</li>`).join('')}</ul>`;
+const acc = [
+ ['ما المقصود بموازنة البرامج والأداء؟',
+  `<p>أسلوب لإعداد الموازنة العامة ينتقل من التركيز على بنود الإنفاق والاعتمادات إلى التركيز على البرامج والأهداف والنتائج، مع ربط كل جنيه يُصرف بما سيتحقق به.</p>${chain(['الأهداف','البرامج والأنشطة','التكلفة','النتائج','قياس الأداء'])}`],
+ ['لماذا ظهرت؟',
+  `<p>ظهرت لعلاج أوجه القصور في موازنة البنود التقليدية، فهي تركز على الاعتمادات وبنود الإنفاق مثل المرتبات والأدوات والمهمات والمصروفات المشتركة، لكنها لا توضح:</p>${ul(['ما البرنامج الذي تُنفق الأموال عليه؟','ما الهدف الذي يتحقق؟','هل نُفِّذ البرنامج بكفاءة؟','هل حقق الإنفاق النتائج المطلوبة؟'])}`],
+ ['الفرق بين موازنة البرامج وموازنة الأداء',
+  `<div class="two"><div><h3>موازنة البرامج</h3><p style="margin:0">ماذا سننفذ؟ تُصنِّف وظائف الحكومة إلى برامج، والبرامج إلى أنشطة ومشروعات، بنظرة مستقبلية.</p></div><div><h3>موازنة الأداء</h3><p style="margin:0">ماذا أنجزنا وكم كلّف وهل تحقق الهدف بكفاءة؟ تقيس الأداء بمقاييس ومؤشرات وتقارن النتائج الفعلية بالمستهدف.</p></div></div><p style="margin-top:10px">عند الجمع بينهما نحصل على موازنة البرامج والأداء.</p>`],
+ ['العناصر الستة',
+  `${ul(['<b>الأهداف:</b> ماذا نريد أن نحقق؟','<b>البرامج:</b> ما البرنامج الذي سيحقق الهدف؟','<b>الأنشطة:</b> ما الأعمال التي ستُنفَّذ داخل البرنامج؟','<b>التكاليف:</b> كم يكلف تنفيذ البرنامج والأنشطة؟','<b>المشروعات:</b> ما الذي سيتم تنفيذه وإنجازه؟','<b>مؤشرات الأداء:</b> كيف نعرف أن البرنامج نجح؟'])}`],
+ ['المبادئ الثمانية',
+  `${ul(['تحديد الأهداف والإمكانيات الفنية والاقتصادية المتاحة لتحقيقها','المرونة لمواجهة الظروف الجديدة وغير المتوقعة','المشاركة من المسئولين على المستويات المختلفة في إعداد الموازنة','الواقعية في تقدير الموارد والتكاليف والنتائج','الشمول لكل أنشطة الوحدة وجميع مواردها','التنبؤ: إعداد الموازنة لفترة مستقبلية بتقديرات علمية','الربط بين الموازنة والهيكل التنظيمي وتحديد مراكز المسئولية','قياس الأداء: الموازنة أداة لمتابعة الأداء ومقارنة النتائج الفعلية بالمخطط'])}`],
+ ['المزايا',
+  `${ul(['رفع كفاءة استخدام الموارد العامة','ترشيد الإنفاق والحد من الهدر','تحسين جودة الخدمات العامة','زيادة الشفافية','تعزيز المساءلة والمحاسبة','مساعدة متخذي القرار بمعلومات أدق','ربط الإنفاق بالنتائج','قياس أداء الجهات الحكومية بوضوح أكبر'])}`],
+ ['متطلبات النجاح',
+  `${ul(['دعم الإدارة العليا','تحديد الأهداف بشكل واضح','وجود نظام محاسبي ومالي متطور','تطبيق محاسبة التكاليف','وجود مؤشرات واضحة لقياس الأداء','وجود كوادر بشرية مؤهلة','تدريب العاملين','تحديد المسئوليات والاختصاصات بوضوح'])}`],
+ ['التحديات المحتملة',
+  `${ul(['ضعف البنية المؤسسية','عدم وجود إطار تشريعي مناسب','نقص الكوادر الفنية المؤهلة','ضعف نظم المعلومات والمحاسبة','صعوبة تحديد وقياس بعض النتائج','الحاجة إلى تطوير نظم محاسبة التكاليف وقياس الأداء'])}`]
+];
+$('#acc').innerHTML = acc.map((a,i)=>`<details ${i===0?'open':''}><summary>${a[0]}</summary><div class="dbody">${a[1]}</div></details>`).join('');
+
+/* ---------- generic stepper ---------- */
+function stepper(el, steps, doneLabel){
+  let i = 0;
+  function render(){
+    const s = steps[i];
+    el.innerHTML = `
+      <div class="dots" role="tablist" aria-label="الخطوات">${steps.map((_,k)=>`<button data-k="${k}" class="${k<i?'done':''} ${k===i?'cur':''}" aria-label="الخطوة ${k+1}"></button>`).join('')}</div>
+      <div class="n">الخطوة ${i+1} من ${steps.length}</div>
+      <h3>${s.t}</h3>
+      <div>${s.d}</div>
+      ${s.note?`<div class="note">${s.note}</div>`:''}
+      <div class="nav2">
+        <button class="btn" data-a="prev" ${i===0?'disabled':''}>السابق</button>
+        <button class="btn fill" data-a="next" ${i===steps.length-1?'disabled':''}>التالي</button>
+      </div>`;
+    $$('.dots button',el).forEach(b=>b.onclick=()=>{i=+b.dataset.k;render();});
+    $('[data-a=prev]',el).onclick=()=>{if(i>0){i--;render();}};
+    $('[data-a=next]',el).onclick=()=>{if(i<steps.length-1){i++;render();}};
+  }
+  render();
+}
+
+stepper($('#phaseStep'),[
+ {t:'التخطيط',d:`${ul(['تحديد الأهداف','تحديد البرامج والأنشطة','تحديد الأهداف قصيرة ومتوسطة وطويلة الأجل','ربط أهداف الوحدة بأهداف الدولة'])}`},
+ {t:'تقدير تكلفة الإنجاز',d:`<p>تُحدَّد تكلفة كل برنامج ونشاط، وتُربط عناصر التكلفة بالعمليات التي يتكون منها البرنامج.</p>`,note:'<b>هنا تظهر أهمية</b> محاسبة التكاليف في تحديد تكلفة وحدة الأداء.'},
+ {t:'المراجعة',d:`<p>يتم التأكد من:</p>${ul(['توافق البرامج مع أهداف الدولة','مناسبة التكاليف','أن الاعتمادات المطلوبة في حدود الموارد المالية المتاحة'])}`},
+ {t:'متابعة التنفيذ وتقويم الأداء',d:`<p>بعد اعتماد الموازنة تبدأ المتابعة الدورية لتنفيذ البرامج والأنشطة، وقياس النتائج الفعلية ومقارنتها بالأهداف والتكاليف المحددة مسبقاً.</p>${ul(['هل نُفِّذ البرنامج؟','هل تحقق الهدف؟','هل تم ذلك بالتكلفة المناسبة؟'])}`}
+]);
+
+/* ---------- system tabs ---------- */
+const PROGS = ['إحلال وتجديد مدارس تعليم أساسي','إنشاء وتجهيز فصول تعليم أساسي','إنشاء وتجهيز فصول تعليم فني','إنشاء وتجهيز فصول ثانوي عام'];
+const sys = $('#sysPanel');
+
+function hyp(){
+  sys.innerHTML = `<div class="panel">
+    <h3>منظومة إعداد الموازنة (Oracle Hyperion)</h3>
+    <p>تتولى وزارة المالية الإشراف على تهيئة وتحديث واختبار منظومة GFMIS ومنظومة إعداد الموازنة، وتطوير شاشاتها لتتوافق مع متطلبات موازنة البرامج والأداء.</p>
+    <div class="seg teal" style="margin-top:12px"><button id="h1" aria-selected="true">قبل تفعيل مقطع البرنامج</button><button id="h2" aria-selected="false">بعد التفعيل</button></div>
+    <div id="hyView"></div></div>`;
+  const v = $('#hyView');
+  const table = `<table class="mock"><tr><th>الحساب</th><th style="text-align:end">موازنة 2026/2025</th></tr>
+    <tr><td>الموارد</td><td class="c">10000000</td></tr>
+    <tr><td>الإيرادات</td><td class="c">11000000</td></tr>
+    <tr><td>الضرائب</td><td class="c">11100000</td></tr>
+    <tr><td>الضرائب على الدخول والأرباح والمكاسب الرأسمالية</td><td class="c">11110000</td></tr>
+    <tr><td>الضرائب على الدخول من التوظف</td><td class="c">11110100</td></tr></table>`;
+  function set(after){
+    $('#h1').setAttribute('aria-selected',!after);$('#h2').setAttribute('aria-selected',after);
+    v.innerHTML = after
+      ? `<label for="pg">البُعد الجديد: البرنامج</label><select id="pg"><option>اختر البرنامج</option>${PROGS.map(p=>`<option>${p}</option>`).join('')}</select>${table}<div class="msg info">تُعدّ الموازنة لكل برنامج، وتُستخرج التقارير المناسبة للبرامج على كل مراحل الإعداد.</div>`
+      : `${table}<div class="msg info">الموازنة بالحسابات فقط، دون ربطها ببرنامج.</div>`;
+  }
+  $('#h1').onclick=()=>set(false);$('#h2').onclick=()=>set(true);set(false);
+}
+
+function trf(){
+  sys.innerHTML = `<div class="panel">
+    <h3>المناقلات والتعزيزات</h3>
+    <p>الشاشة كما هي، لكن يلزم اختيار <b>البرنامج والموقع</b> عند إنشاء الطلب. جرّب بنفسك.</p>
+    <div class="seg" style="margin-top:8px"><button id="k1" aria-selected="true">طلب مناقلة</button><button id="k2" aria-selected="false">طلب تعزيز</button></div>
+    <label for="sp">البرنامج (في خانة المنقول إليه)</label>
+    <select id="sp"><option value="">اختر</option>${PROGS.map(p=>`<option>${p}</option>`).join('')}</select>
+    <label for="sl">الموقع</label>
+    <select id="sl"><option value="">اختر</option><option>العاصمة الإدارية الجديدة</option><option>موقع آخر (مثال)</option></select>
+    <button class="btn fill" id="sg" style="margin-top:14px">تقديم الطلب</button>
+    <div id="sm"></div></div>`;
+  let kind='مناقلة';
+  const sel = (a,b)=>{kind=a?'مناقلة':'تعزيز';$('#k1').setAttribute('aria-selected',a);$('#k2').setAttribute('aria-selected',b);$('#sm').innerHTML='';};
+  $('#k1').onclick=()=>sel(true,false);$('#k2').onclick=()=>sel(false,true);
+  $('#sg').onclick=()=>{
+    const p=$('#sp').value,l=$('#sl').value,m=$('#sm');
+    if(!p||!l){m.innerHTML=`<div class="msg bad">لا يمكن تقديم طلب ال${kind}: اختر ${!p&&!l?'البرنامج والموقع':!p?'البرنامج':'الموقع'} أولاً.</div>`;}
+    else{m.innerHTML=`<div class="msg ok">تم تقديم طلب ال${kind} على البرنامج والموقع المختارين.</div>`;}
+  };
+}
+
+function jrn(){
+  sys.innerHTML = `<div class="panel" style="padding:0;border:0;background:transparent"><div id="jr" class="stepper"></div></div>`;
+  stepper($('#jr'),[
+   {t:'ادخل إلى المنظومة وافتح يومية جديدة',d:'<p>يدخل مسئول إدخال القيود الفعلية على منظومة GFMIS ثم يفتح يومية جديدة كما هو متبع.</p>',note:'<b>تنبيه على شاشة الدخول:</b> على المسئولين الماليين بالهيئات الموازنية والوحدات الحسابية التأكد بعد صرف مرتبات الشهر الجاري من وجود اعتمادات كافية بكافة البنود لصرف مرتبات الشهر التالي، واتخاذ إجراءات التعزيز عند الحاجة تلافياً لتأخر الصرف.'},
+   {t:'أدخل بيانات اليومية',d:'<p>كما هو متبع دائماً.</p>'},
+   {t:'اضغط على الحقل الوصفي',d:'<p>قبل البدء في تسجيل سطور اليومية، اضغط على الحقل الوصفي المشار إليه.</p>'},
+   {t:'حدّد المشروع-النشاط والموقع وIM Code',d:'<p>تظهر نافذة تطلب هذه البيانات الثلاث.</p>',note:'<b>لا يمكن استكمال اليومية</b> بدون تحديد هذه المدخلات.'},
+   {t:'اختر مشروعاً أو نشاطاً',d:'<p>اختر مشروعاً من مشروعات الجهة مع موقعه ووصفه (IM Code)، أو اختر نشاطاً من أنشطة الجهة مع موقعه ووصفه، وذلك حسب استمارة اليومية المراد تسجيلها.</p>',note:'<b>سؤال للمدرّب:</b> كيف تتم التفرقة بين النشاط والمشروع من خلال الكود؟ العرض طرح السؤال دون أن يذكر إجابته.'},
+   {t:'أدخل توليفة القيد بنفس البرنامج والموقع',d:'<p>في توليفة الحساب اختر نفس البرنامج والموقع اللذين أدخلتهما في الحقل الوصفي.</p>',note:'<b>إذا اختلفا</b> فلن يُستكمل إدخال سطور القيد.'},
+   {t:'استكمل سطور القيد',d:'<p>كما هو متبع.</p>'},
+   {t:'افحص الأموال واحجزها ثم رحّل',d:'<p>يتم فحص وحجز الأموال وترحيل القيد كما هو متبع.</p>'}
+  ]);
+}
+
+const REP = {
+ exec:[
+  ['التقسيم الاقتصادي','يعرض التقسيم الاقتصادي لبرنامج أو مشروع أو نشاط.'],
+  ['أسماء الجهات','يعرض الجهات الخاصة بكل برنامج أو نشاط أو مشروع على حدة.'],
+  ['تفاصيل الأنشطة والمشروعات (إدارات)','يعرض البرامج والأنشطة والمشروعات على مستوى الدولة حتى الوصول للوحدة الحسابية.'],
+  ['تفاصيل الأنشطة والمشروعات (وزارات)','يعرض البرامج والأنشطة والمشروعات المدرجة للسادة الوزراء والجهات التابعة.'],
+  ['مقطع الوزراء والجهات التابعة','يعرض البرامج والأنشطة والمشروعات على مستوى مقطع الوزراء والجهات التابعة.']
+ ],
+ prop:[
+  ['التقسيم الاقتصادي الكامل','يعرض التقسيم الاقتصادي كاملاً لكل مقاطع البرامج، من برنامج عمل الحكومة حتى المشروع والنشاط.'],
+  ['أسماء الجهات لكل برنامج','يعرض أسماء الجهات لكل برنامج أو نشاط أو مشروع.'],
+  ['تفاصيل الأنشطة والمشروعات','يعرض البرامج والأنشطة والمشروعات على مستوى الدولة أو القطاع الوظيفي حتى مستوى الهيئة الموازنية.']
+ ]
+};
+function rep(){
+  const mk = (arr,fam)=>arr.map((r,i)=>`<button data-f="${fam}" data-i="${i}" aria-pressed="false">${r[0]}</button>`).join('');
+  sys.innerHTML = `<div class="panel"><h3>التقارير على نظام GFMIS</h3>
+    <div class="fam">تقارير التنفيذ</div><div class="chips">${mk(REP.exec,'exec')}</div>
+    <div class="fam">تقارير مشروع الموازنة</div><div class="chips">${mk(REP.prop,'prop')}</div>
+    <div id="rd" class="msg info" style="margin-top:16px">اختر تقريراً لتعرف ماذا يعرض وما أعمدته.</div></div>`;
+  $$('.chips button',sys).forEach(b=>b.onclick=()=>{
+    $$('.chips button',sys).forEach(x=>x.setAttribute('aria-pressed','false'));
+    b.setAttribute('aria-pressed','true');
+    const f=b.dataset.f, r=REP[f][+b.dataset.i];
+    const cols = f==='exec'
+      ? 'الربط الأصلي، التعديلات، الربط المعدل، المنصرف حتى تاريخه، المتبقي، وفعليات ثلاث سنوات سابقة.'
+      : 'مشروع موازنة العام الحالي، موازنة معتمدة للعام السابق، معدل النمو %، وفعليات ثلاث سنوات سابقة.';
+    $('#rd').innerHTML = `<b>${r[0]}</b><br>${r[1]}<br><span style="font-weight:400">الأعمدة: ${cols}</span>`;
+  });
+}
+const sysViews={hyp,trf,jrn,rep};
+$$('#sysTabs button').forEach(b=>b.onclick=()=>{
+  $$('#sysTabs button').forEach(x=>x.setAttribute('aria-selected',x===b));
+  sysViews[b.dataset.t]();
+});
+hyp();
+
+/* ---------- NIB stepper ---------- */
+stepper($('#nibStep'),[
+ {t:'سجّل الدخول إلى منصة الشبكة المالية الحكومية GFN',d:'<p>اضغط «تسجيل الدخول»، ثم أدخل اسم المستخدم وكلمة المرور.</p>'},
+ {t:'اضغط على «خدمات الشبكة»',d:`${ul(['<b>خدمات الشبكة المالية (GPS):</b> لإنشاء ملف مرتبات أو أوامر دفع موردين','<b>خدمة بنك الاستثمار:</b> لإنشاء أوامر دفع بنك الاستثمار القومي'])}`,note:'أُتيحت أوامر دفع بنك الاستثمار القومي من خلال شاشة منفصلة تحت مسمى «خدمة بنك الاستثمار القومي».'},
+ {t:'اختر «إنشاء أمر دفع بنك استثمار»',d:'<p>تظهر شاشة ترحيب بها: الصفحة الرئيسية، إنشاء أمر دفع بنك استثمار، ومتابعة قيود GFMIS.</p>'},
+ {t:'القسم الأول: البيانات المالية',d:`${ul(['المبلغ','تاريخ الاستحقاق','العملة','نوع أمر الدفع: أمر دفع أو طلب استقطاع','نوع أمر بنك الاستثمار: عام حالي أو سابق أو دائنة','نوع الخطة والخطة','الوصف (حروف عربية أو إنجليزية وأرقام فقط)','المشروعات: ابحث بالعدسة بكود المشروع أو اسمه ثم أضفه بمبلغه'])}`,note:'<b>القاعدة:</b> إجمالي مبالغ المشروعات المضافة = مبلغ أمر الدفع.'},
+ {t:'القسم الثاني: بيانات المستفيد',d:'<p>أدخل بيانات المستفيد (شخصي أو اعتباري)، أو اخترها بعدسة البحث إذا سبق إصدار أمر دفع للممول.</p>'},
+ {t:'القسم الثالث: قيود GFMIS',d:'<p>أدخل رقم القيد ثم اضغط «إضافة».</p>',note:'<b>تأكد من التطابق:</b> بيانات المشروع المُدخل بالقيود المرسلة من GFMIS يجب أن تطابق بيانات المشروع المضاف في الخدمة. وعند قيد يخص الموارد الذاتية أو الصناديق الخاصة، أضف رقم حساب البنك المركزي من عدسة البحث.'},
+ {t:'القسم الرابع: آلية الدفع',d:'<p>أدخل البنك والفرع ورقم الحساب أو IBAN.</p>'},
+ {t:'راجع ثم احفظ ثم وقّع',d:`<p>اضغط «مراجعة»، وراجع البيانات المالية والمشروعات والمستفيد والقيود وآلية الدفع، ثم «أعلم وأريد المتابعة». تظهر رسالة «تم حفظ أمر الدفع بنجاح» مع رقم الأمر.</p>`,note:'<b>لا يمكن تعديل أمر الدفع بعد إنشائه.</b> بعد ذلك يتم توقيع أمر الدفع: <b>التوقيع الثاني ثم الأول</b>.'}
+]);
+
+function chk(){
+  const o=+$('#oa').value||0, s=(+$('#p1').value||0)+(+$('#p2').value||0), m=$('#chk');
+  const f=n=>n.toLocaleString('en-US');
+  if(o<=0){m.className='msg bad';m.textContent='أدخل مبلغ أمر الدفع.';return;}
+  if(s===o){m.className='msg ok';m.textContent='المبالغ متطابقة ('+f(s)+')، يمكن حفظ أمر الدفع.';}
+  else{m.className='msg bad';m.textContent='تعذر حفظ أمر الدفع: إجمالي مبالغ المشروعات ('+f(s)+') لا يساوي مبلغ أمر الدفع ('+f(o)+').';}
+}
+['oa','p1','p2'].forEach(id=>$('#'+id).addEventListener('input',chk));chk();
+
+const WARN=[
+ ['يوجد أمر دفع سبق إنشاؤه بنفس المبلغ من هذه الوحدة الحسابية','تنبيه قبل الإنشاء. الهدف تنبيه مدخل الدفع بوجود أوامر دفع سبقت بنفس المبلغ. راجع المحفوظات المكررة قبل المتابعة حتى لا يتكرر الأمر.'],
+ ['المبلغ المتاح للقيد غير كافٍ','المبلغ المتاح في القيد لا يكفي لإنشاء أمر الدفع. راجع رصيد القيد أو أضف قيداً آخر.'],
+ ['يجب إدخال حساب البنك المركزي في حالة بند سداد ليس موازنة عامة','السداد هنا ليس من الموازنة العامة. أضف رقم حساب البنك المركزي من عدسة البحث في قسم قيود GFMIS.'],
+ ['إجمالي مبالغ المشروعات لا يساوي مبلغ أمر الدفع','عدّل مبالغ المشروعات المضافة حتى يتساوى إجماليها مع مبلغ أمر الدفع.'],
+ ['برجاء إضافة مشروع واحد على الأقل في جدول المشروعات أولاً','اختر المشروع قبل إضافة القيود.'],
+ ['القيد مرتبط بمشروع غير مدخل في جدول المشروعات','القيد يحتوي مشروعاً لا يطابق المشروع المضاف. أضف المشروع المذكور في الرسالة ليتوافق مع رقم القيد.']
+];
+$('#warns').innerHTML = WARN.map(w=>`<details><summary style="font-size:16px">${w[0]}</summary><div class="dbody" style="font-size:16px;color:var(--muted)">${w[1]}</div></details>`).join('');
+
+/* ---------- quiz ---------- */
+const Q = [
+ ['ما السؤال الذي تجيب عنه موازنة البرامج والأداء؟',['أين نصرف المال؟','ماذا سنحقق بما نصرف، وهل تحقق بكفاءة؟','كم نحصّل من الإيرادات؟'],1,'الموازنة التقليدية تسأل «أين نصرف؟»، أما موازنة البرامج والأداء فتربط الإنفاق بالنتائج والكفاءة.'],
+ ['أي ترتيب يصف الفكرة الأساسية للموازنة؟',['البنود ← الاعتمادات ← الصرف','الأهداف ← البرامج والأنشطة ← التكلفة ← النتائج ← قياس الأداء','النتائج ← الأهداف ← التكلفة'],1,'تبدأ من الهدف وتنتهي بقياس الأداء.'],
+ ['في أي مرحلة يتم التأكد من توافق البرامج مع أهداف الدولة ومناسبة التكاليف؟',['التخطيط','المراجعة','متابعة التنفيذ'],1,'مرحلة المراجعة تتأكد من التوافق ومناسبة التكاليف وأن الاعتمادات في حدود الموارد.'],
+ ['عدد المستفيدين من الخدمة الصحية يُعد مثالاً على:',['بند إنفاق','مؤشر أداء','نشاط'],1,'مؤشرات الأداء تقيس هل نجح البرنامج وحقق هدفه.'],
+ ['أي مبدأ يعني القدرة على مواجهة الظروف الجديدة وغير المتوقعة؟',['المرونة','الشمول','الواقعية'],0,'المرونة تتيح للموازنة التعامل مع المتغيرات.'],
+ ['ما الجديد المطلوب عند إنشاء طلب مناقلة أو تعزيز بعد تفعيل مقطع البرنامج؟',['لا جديد، الشاشة والبيانات كما هي','اختيار البرنامج والموقع','إلغاء خانة الحساب'],1,'الشاشة كما هي، لكن يلزم اختيار البرنامج والموقع.'],
+ ['ماذا يحدث لو لم تحدد المشروع-النشاط والموقع وIM Code في الحقل الوصفي لليومية؟',['تُستكمل اليومية عادة','لا يمكن استكمال اليومية','يُحدَّدون تلقائياً'],1,'لا يمكن استكمال اليومية بدون تحديد هذه المدخلات.'],
+ ['إجمالي مبالغ المشروعات في أمر دفع بنك الاستثمار لا يساوي مبلغ الأمر. ما النتيجة؟',['يُحفظ الأمر عادة','تعذر حفظ أمر الدفع','يُعدَّل المبلغ تلقائياً'],1,'يجب أن يتساوى الإجمالي مع مبلغ أمر الدفع.'],
+ ['عند إضافة قيد يخص الموارد الذاتية أو الصناديق الخاصة ماذا تضيف؟',['رقم حساب البنك المركزي','رقم بطاقة المستفيد فقط','لا شيء'],0,'يجب إضافة رقم حساب البنك المركزي من عدسة البحث.'],
+ ['ما ترتيب التوقيع على أمر الدفع بعد حفظه؟',['الأول ثم الثاني','الثاني ثم الأول','يكفي توقيع واحد'],1,'يتم توقيع أمر الدفع الثاني ثم الأول.']
+];
+let qi=0, sc=0, answered=false;
+function quiz(){
+  const b=$('#quizBox');
+  if(qi>=Q.length){
+    b.innerHTML=`<div class="score">${sc} / ${Q.length}</div><p style="font-size:19px;font-weight:700">${sc>=8?'ممتاز، أنت متمكن من المادة.':sc>=5?'مستوى جيد، راجع النقاط التي أخطأت فيها.':'راجع الأقسام أعلاه ثم أعد المحاولة.'}</p><button class="btn fill" id="rs">أعد الاختبار</button>`;
+    $('#rs').onclick=()=>{qi=0;sc=0;quiz();};return;
+  }
+  answered=false;
+  const q=Q[qi];
+  b.innerHTML=`<div class="prog"><div style="width:${qi/Q.length*100}%"></div></div>
+    <div style="color:var(--muted);font-size:15px">السؤال ${qi+1} من ${Q.length}</div>
+    <h3 style="font-size:20px;margin:4px 0 6px">${q[0]}</h3>
+    ${q[1].map((o,i)=>`<button class="opt" data-i="${i}">${o}</button>`).join('')}
+    <div id="fb"></div>`;
+  $$('.opt',b).forEach(btn=>btn.onclick=()=>{
+    if(answered)return;answered=true;
+    const i=+btn.dataset.i, ok=i===q[2];
+    if(ok)sc++;
+    $$('.opt',b).forEach((x,k)=>{x.disabled=true;if(k===q[2])x.classList.add('ok');else if(k===i)x.classList.add('bad');});
+    $('#fb').innerHTML=`<div class="msg ${ok?'ok':'bad'}">${ok?'إجابة صحيحة. ':'إجابة غير صحيحة. '}${q[3]}</div><div class="nav2" style="justify-content:flex-start"><button class="btn fill" id="nx">${qi===Q.length-1?'النتيجة':'السؤال التالي'}</button></div>`;
+    $('#nx').onclick=()=>{qi++;quiz();};
+  });
+}
+quiz();
+
+/* ---------- flashcards ---------- */
+const FC = [
+ ['موازنة البنود التقليدية','تركز على بنود الإنفاق والاعتمادات: أين نصرف؟'],
+ ['موازنة البرامج','تركز على ماذا سننفذ: تصنيف الوظائف إلى برامج وأنشطة ومشروعات.'],
+ ['موازنة الأداء','تقيس ما أُنجز وتكلفته وكفاءته، وتقارن النتائج بالمستهدف.'],
+ ['مؤشر الأداء','مقياس يوضح هل نجح البرنامج وحقق هدفه، مثل عدد المستفيدين من الخدمة.'],
+ ['مرحلة المراجعة','التأكد من توافق البرامج مع أهداف الدولة ومناسبة التكاليف وكفاية الموارد.'],
+ ['مقطع البرنامج','بُعد جديد في منظومتي إعداد الموازنة وGFMIS يربط الموازنة والقيود بالبرنامج.'],
+ ['الحقل الوصفي في اليومية','نافذة تُحدَّد فيها بيانات المشروع-النشاط والموقع وIM Code قبل تسجيل سطور اليومية.'],
+ ['GFN','منصة خدمات الشبكة المالية الحكومية، يُدخل منها إلى GPS وخدمة بنك الاستثمار.'],
+ ['قيد أمر دفع بنك الاستثمار','إجمالي مبالغ المشروعات يساوي مبلغ الأمر، وبيانات المشروع تطابق قيود GFMIS.'],
+ ['توقيع أمر الدفع','بعد الحفظ يوقَّع الأمر: التوقيع الثاني ثم الأول.']
+];
+$('#fc').innerHTML = FC.map((c,i)=>`<button class="fc" aria-pressed="false" data-i="${i}">${c[0]}</button>`).join('');
+$$('.fc').forEach(b=>b.onclick=()=>{
+  const i=+b.dataset.i, on=b.getAttribute('aria-pressed')==='true';
+  b.setAttribute('aria-pressed',!on);
+  b.innerHTML = on ? FC[i][0] : FC[i][1];
+});
+</script>
+</body>
+</html>
