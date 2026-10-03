@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>منصة موازنة البرامج والأداء</title>
+<style>
+:root{--navy:#17324d;--blue:#2878a8;--teal:#168b88;--bg:#f4f7fa;--card:#fff;--ink:#1d2935;--muted:#657587;--line:#dbe4ec;--gold:#c79532}
+*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{background:linear-gradient(135deg,var(--navy),#245d80);color:white;padding:28px 18px;position:sticky;top:0;z-index:5;box-shadow:0 3px 15px #0002}
+.wrap{max-width:1100px;margin:auto}.tag{display:inline-block;background:#ffffff22;border:1px solid #ffffff44;border-radius:20px;padding:3px 12px;font-size:13px}
+h1{margin:8px 0 3px;font-size:30px}.subtitle{opacity:.9}
+.progress{height:7px;background:#ffffff22;border-radius:8px;margin-top:18px;overflow:hidden}.bar{height:100%;width:10%;background:#d8b15a;transition:.3s}
+nav{background:white;border-bottom:1px solid var(--line);position:sticky;top:126px;z-index:4;overflow:auto;white-space:nowrap}
+nav button{border:0;background:none;padding:13px 14px;color:var(--navy);font-weight:bold;cursor:pointer}
+nav button.active{color:var(--blue);border-bottom:3px solid var(--blue)}
+main{padding:25px 15px 50px}.panel{display:none}.panel.active{display:block}
+.hero,.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;margin-bottom:18px;box-shadow:0 4px 16px #17324d0b}
+.hero{border-top:5px solid var(--teal)}h2{color:var(--navy);margin-top:0}h3{color:var(--blue)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.mini{background:#f8fbfd;border:1px solid var(--line);border-radius:13px;padding:15px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:20px 0}.step{background:#e9f4f7;border:1px solid #c9e1e7;border-radius:12px;padding:10px 14px;font-weight:bold;color:var(--navy)}
+.arrow{color:var(--teal);font-size:22px}
+table{width:100%;border-collapse:collapse;background:white}th,td{border:1px solid var(--line);padding:10px;text-align:right;vertical-align:top}th{background:#eef5f8;color:var(--navy)}
+ul{padding-right:22px}.note{background:#fff8e8;border-right:4px solid var(--gold);padding:12px 15px;border-radius:8px}
+.qa{border:1px solid var(--line);border-radius:12px;margin:10px 0;overflow:hidden;background:white}.q{padding:14px;font-weight:bold;cursor:pointer;background:#f7fafc}.a{display:none;padding:14px;border-top:1px solid var(--line)}.qa.open .a{display:block}
+.quiz .option{display:block;margin:8px 0;padding:11px;border:1px solid var(--line);border-radius:9px;background:white;cursor:pointer}.quiz .option:hover{background:#f0f7fa}
+.result{font-size:18px;font-weight:bold;margin-top:14px;color:var(--teal)}input[type=text]{width:100%;padding:12px;border:1px solid var(--line);border-radius:9px;font-size:16px}button.primary{background:var(--blue);color:#fff;border:0;border-radius:9px;padding:11px 18px;font-weight:bold;cursor:pointer}
+.certificate{border:8px double #caa14b;background:#fffdf5;padding:35px;text-align:center;min-height:300px}.certificate .name{font-size:30px;color:var(--navy);font-weight:bold;margin:25px 0}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:650px){h1{font-size:24px}nav{top:121px}.flow{display:block}.step{margin:7px 0;text-align:center}.arrow{display:block;text-align:center;transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<header>
+<div class="wrap">
+<span class="tag">منصة تعليمية تفاعلية</span>
+<h1>موازنة البرامج والأداء</h1>
+<div class="subtitle">المفاهيم الأساسية • التطبيق العملي • GFMIS • خدمات بنك الاستثمار القومي • الاختبار</div>
+<div class="progress"><div class="bar" id="bar"></div></div>
+</div>
+</header>
+
+<nav id="nav">
+<button class="active" data-tab="home">الرئيسية</button>
+<button data-tab="concepts">المفاهيم</button>
+<button data-tab="stages">المراحل</button>
+<button data-tab="gfmis">GFMIS</button>
+<button data-tab="bank">بنك الاستثمار</button>
+<button data-tab="cases">مواقف عملية</button>
+<button data-tab="qa">أسئلة وأجوبة</button>
+<button data-tab="quiz">اختبار</button>
+<button data-tab="certificate">الشهادة</button>
+</nav>
+
+<main class="wrap">
+<section id="home" class="panel active">
+<div class="hero">
+<h2>منصة موازنة البرامج والأداء</h2>
+<p>منصة تدريبية تجمع بين الشرح المبسط لمفهوم موازنة البرامج والأداء، والتطبيقات المرتبطة بـGFMIS وOracle Hyperion، وخدمات بنك الاستثمار القومي.</p>
+<div class="flow"><span class="step">الأهداف</span><span class="arrow">←</span><span class="step">البرامج والأنشطة</span><span class="arrow">←</span><span class="step">التكلفة</span><span class="arrow">←</span><span class="step">النتائج</span><span class="arrow">←</span><span class="step">قياس الأداء</span></div>
+</div>
+<div class="grid">
+<div class="mini"><h3>📚 تعلّم</h3><p>افهم الفكرة والمصطلحات والمبادئ والفروق بين موازنة البرامج وموازنة الأداء.</p></div>
+<div class="mini"><h3>🧩 طبّق</h3><p>انتقل من المفهوم إلى مراحل التنفيذ، ثم إلى المناقلات والتعزيزات والتقارير والقيود.</p></div>
+<div class="mini"><h3>💻 ميكنة</h3><p>راجع العلاقة بين موازنة البرامج والأداء وGFMIS وOracle Hyperion.</p></div>
+<div class="mini"><h3>📝 اختبر</h3><p>اختبر فهمك بأسئلة اختيار من متعدد واحصل على نتيجة فورية.</p></div>
+</div>
+<div class="card note"><b>مصدر المحتوى:</b> تم بناء هذه النسخة على مادتي «شرح مبسط لموازنة البرامج والأداء» و«موازنة البرامج والأداء (GPS/GFMIS) وخدمات بنك الاستثمار القومي – الإسماعيلية – سبتمبر 2026».</div>
+</section>
+
+<section id="concepts" class="panel">
+<div class="card"><h2>1. ما المقصود بموازنة البرامج والأداء؟</h2>
+<p>هي أسلوب لإدارة الموازنة لا يركز فقط على الاعتمادات المالية، وإنما يربط الموارد المالية بالبرامج والأنشطة والنتائج، مع وضع مؤشرات لقياس الأداء بهدف تحقيق الأهداف بكفاءة وفاعلية.</p>
+<div class="flow"><span class="step">الأهداف</span><span class="arrow">←</span><span class="step">البرامج والأنشطة</span><span class="arrow">←</span><span class="step">التكلفة</span><span class="arrow">←</span><span class="step">النتائج</span><span class="arrow">←</span><span class="step">قياس الأداء</span></div>
+</div>
+<div class="card"><h2>2. لماذا ظهرت؟</h2>
+<p>لأن موازنة البنود التقليدية تركز بدرجة كبيرة على بنود الإنفاق مثل المرتبات والأدوات والمستلزمات والمصروفات، ولا توضح بصورة كافية البرنامج الذي تمولّه الأموال، والهدف الذي تحقق، وكفاءة التنفيذ، والنتائج التي تحققت مقابل الإنفاق.</p>
+</div>
+<div class="card"><h2>3. الفرق بين موازنة البرامج وموازنة الأداء</h2>
+<table><tr><th>موازنة البرامج</th><th>موازنة الأداء</th></tr>
+<tr><td>تركز على البرامج والأنشطة.</td><td>تركز على النتائج والإنجاز.</td></tr>
+<tr><td>تُصنّف وظائف الحكومة إلى برامج ثم برامج إلى أنشطة ومشروعات.</td><td>تقيس الأداء من خلال مؤشرات ومقارنة النتائج بالمستهدف.</td></tr>
+<tr><td>نظرة أكثر ارتباطًا بالتخطيط.</td><td>تركز على ما تم إنجازه فعليًا.</td></tr>
+<tr><td>السؤال: ماذا ننفذ؟</td><td>السؤال: ماذا أنجزنا؟</td></tr>
+</table></div>
+<div class="card"><h2>4. العناصر الأساسية</h2><div class="grid">
+<div class="mini"><b>الأهداف</b><br>ما الذي نريد تحقيقه؟</div><div class="mini"><b>البرامج</b><br>الإطار الذي يجمع الأعمال لتحقيق الهدف.</div>
+<div class="mini"><b>الأنشطة</b><br>الأعمال والمشروعات اللازمة للتنفيذ.</div><div class="mini"><b>التكاليف</b><br>الموارد اللازمة للإنجاز.</div>
+<div class="mini"><b>النتائج/المخرجات</b><br>ما تحقق من تنفيذ البرنامج.</div><div class="mini"><b>مؤشرات الأداء</b><br>أدوات قياس الإنجاز والنتائج.</div>
+</div></div>
+<div class="card"><h2>5. مثال تطبيقي: الرعاية الصحية الأولية</h2>
+<p><b>الهدف:</b> تحسين الرعاية الصحية.</p><p><b>البرنامج:</b> الرعاية الصحية الأولية.</p><p><b>الأنشطة:</b> توفير الوحدات الصحية، توفير الأجهزة، تدريب العاملين، شراء المستلزمات.</p><p><b>المخرجات:</b> عدد الوحدات والأجهزة والعاملين المدربين.</p><p><b>مؤشرات الأداء:</b> عدد المستفيدين، جودة الخدمة، ومدى تحقيق الهدف.</p>
+</div>
+<div class="card"><h2>6. المبادئ</h2><div class="grid">
+<div class="mini">تحديد الأهداف والإمكانات</div><div class="mini">المرونة</div><div class="mini">المشاركة</div><div class="mini">الواقعية</div>
+<div class="mini">التمويل</div><div class="mini">التنبؤ</div><div class="mini">التوزيع الزمني</div><div class="mini">ربط الموازنة بالهيكل التنظيمي</div>
+<div class="mini">قياس الأداء</div>
+</div></div>
+</section>
+
+<section id="stages" class="panel">
+<div class="card"><h2>مراحل التطبيق الأربع</h2>
+<div class="grid">
+<div class="mini"><h3>01 التخطيط</h3><p>تحديد الأهداف الرئيسية والأهداف قصيرة ومتوسطة وطويلة الأجل وربطها بالأهداف العامة للدولة، ثم تحديد البرامج والأنشطة اللازمة.</p></div>
+<div class="mini"><h3>02 تقدير تكلفة الإنجاز</h3><p>تحديد تكلفة كل برنامج ونشاط وربط عناصر التكلفة بالعمل أو الخدمة، مع الاستفادة من محاسبة التكاليف.</p></div>
+<div class="mini"><h3>03 المراجعة</h3><p>التأكد من أن البرامج والأنشطة تتفق مع الأهداف العامة وأن الموارد المتاحة تسمح بتنفيذها.</p></div>
+<div class="mini"><h3>04 متابعة التنفيذ</h3><p>المتابعة الدورية للتنفيذ وقياس النتائج الفعلية ومقارنتها بالمستهدفات والتكاليف المقدرة.</p></div>
+</div></div>
+<div class="card"><h2>المزايا</h2><ul><li>رفع كفاءة استخدام الموارد العامة.</li><li>ترشيد الإنفاق والحد من الهدر.</li><li>تحسين جودة الخدمات العامة.</li><li>زيادة الشفافية والمساءلة والمحاسبة.</li><li>ربط الإنفاق بالنتائج.</li><li>قياس أداء الجهات الحكومية بصورة أوضح.</li><li>توفير معلومات تساعد متخذ القرار.</li></ul></div>
+<div class="card"><h2>عوامل النجاح</h2><ol><li>دعم الإدارة العليا.</li><li>أهداف واضحة وقابلة للقياس.</li><li>نظام محاسبي ومالي متطور.</li><li>تطبيق محاسبة التكاليف.</li><li>مؤشرات أداء مالية وغير مالية مناسبة.</li><li>خطة تنفيذية واضحة.</li><li>كوادر مؤهلة ومدربة.</li><li>دقة تصنيف الوظائف والبرامج والأنشطة.</li></ol></div>
+<div class="card"><h2>التحديات</h2><ul><li>ضعف البنية التحتية.</li><li>عدم وجود نظم متابعة مناسبة.</li><li>نقص الكوادر الفنية المتخصصة.</li><li>ضعف نظم المعلومات والمتابعة.</li><li>صعوبة قياس بعض النتائج.</li><li>الحاجة إلى نظم فعالة لمتابعة التكاليف وقياس الأداء.</li></ul></div>
+</section>
+
+<section id="gfmis" class="panel">
+<div class="card"><h2>التكامل مع GFMIS وOracle Hyperion</h2>
+<p>توضح المادة أن وزارة المالية تشرف على تهيئة وتحديث واختبار الأنظمة المالية المميكنة، ومن بينها <b>GFMIS</b> ومنظومة إعداد الموازنة <b>Oracle Hyperion</b>، بما يتوافق مع متطلبات تطبيق موازنة البرامج والأداء واستخراج التقارير المالية المطلوبة.</p>
+</div>
+<div class="card"><h2>الهيئة الموازنية</h2><h3>المناقلات</h3><p>تظل الشاشة كما هي، مع ضرورة اختيار <b>البرنامج والموقع</b> في خانة المنقول إليه عند إنشاء طلب المناقلة.</p><h3>التعزيزات</h3><p>تظل الشاشة كما هي، مع ضرورة اختيار <b>البرنامج والموقع</b> عند إنشاء طلب التعزيز.</p></div>
+<div class="card"><h2>التقارير المالية على GFMIS</h2><div class="grid">
+<div class="mini"><b>التقسيم الاقتصادي</b><br>عرض التقسيم الاقتصادي للبرنامج أو المشروع أو النشاط.</div>
+<div class="mini"><b>أسماء الجهات</b><br>عرض أسماء الجهات لكل برنامج أو نشاط أو مشروع.</div>
+<div class="mini"><b>التفاصيل</b><br>عرض البرامج والأنشطة والمشروعات من مستوى الدولة أو القطاع الوظيفي حتى الهيئة الموازنية.</div>
+<div class="mini"><b>تقارير الموازنة</b><br>استخراج التقارير المطلوبة خلال مراحل إعداد مشروع الموازنة وبعد تفعيل مقطع البرامج.</div>
+</div></div>
+<div class="card"><h2>إدخال القيود الفعلية</h2><ol><li>الدخول إلى المنظومة وإنشاء يومية جديدة.</li><li>إدخال بيانات اليومية كما هو متبع.</li><li>الدخول إلى الحقل الوصفي قبل ترحيل سطور اليومية.</li><li>إدخال: <b>المشروع/النشاط – الموقع – Code IM</b>.</li><li>اختيار المشروع أو النشاط والموقع والوصف وفقًا لليومية المراد ترحيلها.</li><li>استكمال القيد ثم فحص وحرز الأموال وترحيل القيد.</li></ol></div>
+<div class="card note"><b>قاعدة مهمة من المادة:</b> عند إدخال توليفة قيد اليومية يجب اختيار نفس البرنامج والموقع السابق إدخالهما في الحقل الوصفي؛ وفي حالة الاختلاف لن يستكمل إدخال سطر القيد.</div>
+</section>
+
+<section id="bank" class="panel">
+<div class="card"><h2>خدمات بنك الاستثمار القومي</h2><p>توضح المادة إتاحة إنشاء أوامر الدفع الخاصة ببنك الاستثمار القومي لدى مدخل الدفع الإلكتروني GPS من خلال شاشة مستقلة باسم <b>خدمة بنك الاستثمار القومي</b>.</p>
+<h3>مسار الدخول</h3><ol><li>تسجيل الدخول.</li><li>إدخال اسم المستخدم وكلمة المرور.</li><li>الضغط على خدمات الشبكة.</li><li>اختيار خدمة بنك الاستثمار القومي لإنشاء أوامر الدفع الخاصة بها.</li></ol></div>
+<div class="card"><h2>القسم الأول: البيانات المالية</h2><ul><li>المبلغ.</li><li>تاريخ الاستحقاق.</li><li>العملة.</li><li>نوع أمر الدفع: أمر دفع / طلب استقطاع.</li><li>نوع أمر دفع بنك الاستثمار: عام حالي / سابق / دائنة.</li><li>نوع الخطة.</li><li>الخطة.</li><li>الوصف.</li><li>بيانات المشروع من خلال العدسة والبحث بكود المشروع أو اسم المشروع.</li></ul></div>
+<div class="card"><h2>القسم الثاني: بيانات المستفيد</h2><p>يتم إدخال بيانات المستفيد، سواء كان شخصًا طبيعيًا أو اعتباريًا، أو اختياره من خلال عدسة البحث في حالة سبق إصدار أمر دفع للممول.</p></div>
+<div class="card"><h2>القسم الثالث: قيود GFMIS</h2><p>يتم إدخال بيانات القيود، مع ضرورة تطابق بيانات المشروع المدخل بالقيود المرسلة من GFMIS مع بيانات المشروع المضاف من خلال خدمة بنك الاستثمار القومي حتى يتم إضافة القيود واستكمال إنشاء أمر الدفع.</p>
+<div class="note"><b>حالة عدم التطابق:</b> تظهر رسالة تحذيرية توضح المشروع المطلوب إضافته ليتوافق مع رقم القيد. وعند إضافة قيد يخص الموارد الذاتية/الصناديق الخاصة، يجب إضافة رقم حساب البنك المركزي من خلال عدسة البحث.</div></div>
+<div class="card"><h2>القسم الرابع: بيانات الحساب البنكي والمراجعة</h2><ul><li>إدخال البنك.</li><li>الفرع.</li><li>رقم الحساب.</li><li>IBAN.</li><li>الضغط على «مراجعة».</li></ul></div>
+</section>
+
+<section id="cases" class="panel">
+<div class="card"><h2>مواقف عملية للتدريب</h2>
+<div class="qa"><div class="q">موقف 1: عند إنشاء طلب مناقلة، ما البيانات التي يجب اختيارها؟</div><div class="a">يتم اختيار البرنامج والموقع في خانة المنقول إليه.</div></div>
+<div class="qa"><div class="q">موقف 2: عند إدخال قيد GFMIS، ما الذي يجب إدخاله في الحقل الوصفي؟</div><div class="a">المشروع/النشاط، الموقع، وCode IM.</div></div>
+<div class="qa"><div class="q">موقف 3: البرنامج والموقع في الحقل الوصفي لا يطابقان الاختيار في سطور القيد. ماذا يحدث؟</div><div class="a">وفق المادة، لا يستكمل إدخال سطر القيد في حالة الاختلاف.</div></div>
+<div class="qa"><div class="q">موقف 4: بيانات المشروع في قيد GFMIS لا تطابق المشروع المضاف بخدمة بنك الاستثمار القومي.</div><div class="a">تظهر رسالة تحذيرية توضح المشروع المطلوب إضافته ليتوافق مع رقم القيد.</div></div>
+<div class="qa"><div class="q">موقف 5: قيد يخص الموارد الذاتية/الصناديق الخاصة.</div><div class="a">يجب إضافة رقم حساب البنك المركزي من خلال عدسة البحث.</div></div>
+</div>
+</section>
+
+<section id="qa" class="panel">
+<div class="card"><h2>أسئلة وأجوبة المراجعة</h2><p>اضغطي على السؤال لعرض الإجابة.</p></div>
+<div id="qas"></div>
+</section>
+
+<section id="quiz" class="panel">
+<div class="card quiz"><h2>اختبار تفاعلي</h2><div id="quizbox"></div><button class="primary" onclick="grade()">إظهار النتيجة</button><div id="result" class="result"></div></div>
+</section>
+
+<section id="certificate" class="panel">
+<div class="card"><h2>شهادة إتمام المراجعة</h2><p>اكتبي الاسم كما تريدين ظهوره على الشهادة:</p><input id="certName" type="text" placeholder="الاسم بالكامل"><br><br><button class="primary" onclick="makeCert()">إظهار الشهادة</button></div>
+<div id="cert"></div>
+</section>
+</main>
+<footer>منصة تعليمية تفاعلية • موازنة البرامج والأداء • المحتوى مبني على المواد التدريبية المرفقة</footer>
+
+<script>
+const tabs=[...document.querySelectorAll('nav button')];
+tabs.forEach((b,i)=>b.onclick=()=>{tabs.forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.tab).classList.add('active');document.getElementById('bar').style.width=((i+1)/tabs.length*100)+'%';scrollTo({top:0,behavior:'smooth'})});
+document.querySelectorAll('.qa .q').forEach(q=>q.onclick=()=>q.parentElement.classList.toggle('open'));
+
+const questions=[
+["ما المقصود بموازنة البرامج والأداء؟","نظام يربط الموارد بالبرامج والأنشطة والنتائج مع مؤشرات لقياس الأداء.","ربط الموارد بالبرامج والنتائج والأداء"],
+["ما الفرق الأساسي بين الموازنة التقليدية وموازنة البرامج والأداء؟","التقليدية تركز على بنود الإنفاق، بينما البرامج والأداء تربط الإنفاق بالأهداف والنتائج والأداء.","ربط الإنفاق بالنتائج"],
+["ماذا تركز عليه موازنة البرامج؟","البرامج والأنشطة.","البرامج والأنشطة"],
+["ماذا تركز عليه موازنة الأداء؟","النتائج والإنجاز وقياس الأداء.","النتائج والإنجاز"],
+["ما الفرق المختصر بينهما؟","موازنة البرامج تحدد ماذا ننفذ، وموازنة الأداء تقيس ماذا أنجزنا.","ماذا ننفذ / ماذا أنجزنا"],
+["ما أهمية موازنة البرامج والأداء؟","ربط الاعتمادات المالية بالنتائج، ورفع كفاءة استخدام الموارد، وزيادة الشفافية والمساءلة.","ربط الإنفاق بالنتائج"],
+["لماذا ظهرت الحاجة إليها؟","بسبب قصور التركيز على بنود الإنفاق وحدها في توضيح البرامج والأهداف والنتائج.","الحاجة لربط الإنفاق بالأهداف والنتائج"],
+["ما الهدف الأساسي؟","ربط الموارد المالية بالأهداف والبرامج والأنشطة والنتائج وقياس الأداء لتحقيق الأهداف بكفاءة وفاعلية.","ربط الموارد بالأهداف والنتائج"],
+["اذكر العناصر الأساسية.","الأهداف والبرامج والأنشطة والتكاليف والنتائج/المخرجات ومؤشرات الأداء والمتابعة والتقييم.","الأهداف والبرامج والأنشطة والتكاليف والنتائج والمؤشرات"],
+["كيف يقاس الأداء؟","بتحديد وحدات العمل أو الخدمة، وحجم الوحدة، ومقاييس الأداء، ثم مقارنة النتائج الفعلية بالمستهدفة.","مقارنة الفعلي بالمستهدف"],
+["اذكر مبادئ التطبيق.","تحديد الأهداف والموارد، المرونة، المشاركة، الواقعية، التمويل، التنبؤ، التوزيع الزمني، وربط الموازنة بالهيكل التنظيمي.","المبادئ الأساسية"],
+["ما المقصود بربط الموازنة بالهيكل التنظيمي؟","تنظيم البرامج والأنشطة بما يتفق مع الهيكل التنظيمي وتحديد المسؤوليات والاختصاصات بوضوح.","تحديد المسؤوليات والاختصاصات"],
+["ما مراحل التطبيق؟","التخطيط، تقدير تكلفة الإنجاز، المراجعة، متابعة التنفيذ.","أربع مراحل"],
+["ماذا تتضمن مرحلة التخطيط؟","تحديد الأهداف بمستوياتها وربطها بالأهداف العامة للدولة ثم تحديد البرامج والأنشطة اللازمة.","الأهداف ثم البرامج والأنشطة"],
+["ما المقصود بتقدير تكلفة الإنجاز؟","تحديد تكلفة كل برنامج ونشاط وربط عناصر التكلفة بالعمل أو الخدمة والاستفادة من محاسبة التكاليف.","تحديد تكلفة البرنامج والنشاط"],
+["ما أهمية المراجعة؟","التأكد من توافق البرامج والأنشطة مع الأهداف العامة وأن الموارد المتاحة تسمح بتنفيذها.","التأكد من الاتساق والموارد"],
+["ما أهمية المتابعة؟","التأكد من تنفيذ البرامج والأنشطة وفق الأهداف وقياس النتائج ومقارنتها بالمستهدفات والتكاليف.","قياس التنفيذ والنتائج"],
+["ما عوامل النجاح؟","دعم الإدارة العليا، وضوح الأهداف، نظم محاسبية ومالية، محاسبة التكاليف، مؤشرات أداء، خطة تنفيذ، كوادر مدربة وتصنيف دقيق.","عوامل النجاح"],
+["ما أهم المزايا؟","رفع كفاءة استخدام الموارد، ترشيد الإنفاق، الحد من الهدر، تحسين الخدمات، الشفافية والمساءلة، دعم القرار وربط الإنفاق بالنتائج.","كفاءة وشفافية وربط بالنتائج"],
+["ما أبرز التحديات؟","ضعف البنية التحتية، نقص نظم المتابعة والمعلومات، نقص الكوادر المتخصصة، وصعوبة قياس بعض النتائج.","البنية والنظم والكوادر والقياس"],
+["ما الذي يجب مراعاته عند إدخال قيد GFMIS؟","اختيار نفس البرنامج والموقع السابق إدخالهما في الحقل الوصفي، وإدخال المشروع/النشاط والموقع وCode IM.","تطابق البيانات"]
+];
+document.getElementById('qas').innerHTML=questions.map((x,i)=>`<div class="qa"><div class="q">${i+1}. ${x[0]}</div><div class="a">${x[1]}</div></div>`).join('');
+document.querySelectorAll('#qas .q').forEach(q=>q.onclick=()=>q.parentElement.classList.toggle('open'));
+
+const quiz=[
+["ما التسلسل الأقرب لفكرة موازنة البرامج والأداء؟",["الأهداف ← البرامج والأنشطة ← التكلفة ← النتائج ← قياس الأداء","التكلفة ← المرتبات ← المصروفات ← المشتريات","الجهات ← الموظفون ← المباني ← المخازن"],0],
+["موازنة البرامج تجيب أساسًا عن سؤال:",["ماذا أنجزنا؟","ماذا ننفذ؟","كم عدد الموظفين؟"],1],
+["من مراحل التطبيق:",["التخطيط وتقدير تكلفة الإنجاز والمراجعة ومتابعة التنفيذ","الشراء والتخزين فقط","التحصيل فقط"],0],
+["في طلب المناقلة يجب اختيار:",["البرنامج والموقع في خانة المنقول إليه","IBAN فقط","نوع العملة فقط"],0],
+["ما البيانات المطلوبة في الحقل الوصفي لقيد GFMIS؟",["المشروع/النشاط والموقع وCode IM","اسم الموظف فقط","رقم الهاتف"],0],
+["في خدمة بنك الاستثمار، من بيانات الحساب البنكي:",["البنك والفرع ورقم الحساب وIBAN","اسم البرنامج فقط","نوع التدريب"],0],
+["إذا لم تتطابق بيانات المشروع في القيد مع المشروع المضاف بخدمة بنك الاستثمار:",["تظهر رسالة تحذيرية لتوضيح المشروع المطلوب","يتم قبول القيد دائمًا","يتم حذف الحساب"],0],
+["من عوامل نجاح التطبيق:",["أهداف واضحة ومؤشرات أداء وكوادر مدربة","غياب نظم المعلومات","عدم متابعة التكاليف"],0]
+];
+document.getElementById('quizbox').innerHTML=quiz.map((q,i)=>`<div class="card"><b>${i+1}. ${q[0]}</b>${q[1].map((o,j)=>`<label class="option"><input type="radio" name="q${i}" value="${j}"> ${o}</label>`).join('')}</div>`).join('');
+function grade(){let score=0;quiz.forEach((q,i)=>{let a=document.querySelector(`input[name=q${i}]:checked`);if(a&&+a.value===q[2])score++});document.getElementById('result').textContent=`نتيجتك: ${score} من ${quiz.length}`;}
+function makeCert(){let n=document.getElementById('certName').value.trim()||'المتدرب/ة';document.getElementById('cert').innerHTML=`<div class="certificate"><div>شهادة إتمام مراجعة</div><h2>موازنة البرامج والأداء</h2><div class="name">${n}</div><p>إتمام مراجعة المحتوى التعليمي التفاعلي في المفاهيم والتطبيقات وGFMIS وخدمات بنك الاستثمار القومي.</p><p>تاريخ الإصدار: ${new Date().toLocaleDateString('ar-EG')}</p></div>`;}
+</script>
+</body>
+</html>
